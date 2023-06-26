@@ -1,3 +1,4 @@
 # Northcoders News API
 
-For instructions, please head over to [L2C NC News](https://l2c.northcoders.com/courses/be/nc-news).
+Create one .env file that contains "PGDATABASE=(your database name)" and another that contains "PGDATABASE=(your database name)_test"
+Then connection.js should choose which database to access programatically
