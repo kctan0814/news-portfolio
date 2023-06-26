@@ -1,5 +1,4 @@
 # Northcoders News API
 
-Create one env files to contain "PGDATABASE=(name of your database)" and another that contains "PGDATABASE=(name of your database)_test"
-Then connection.js should be able to switch between your databases programatically :)
- 
+Create one .env file that contains "PGDATABASE=(your database name)" and another that contains "PGDATABASE=(your database name)_test"
+Then connection.js should choose which database to access programatically
