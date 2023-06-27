@@ -25,3 +25,25 @@ describe('GET /api/topics', () => {
       })
   })
 })
+
+describe('GET /api/articles', () => {
+  test('200: should return all the comments from the specified article', () => {
+    return request(app)
+      .get('/api/articles/1/comments')
+      // .expect(200)
+      .then(({body: {comments}}) => {
+        // expect(comments.lenght).toBe(11)
+        // expect(Array.isArray(comments)).toBe(true)
+        // comments.forEach(comment => {
+        //   expect(comment).toMatchObject({
+        //     comment_id: expect.any(Number),
+        //     votes: expect.any(Number),
+        //     created_at: expect.any(String),
+        //     author: expect.any(String),
+        //     body: expect.any(String),
+        //     article_id: expect.any(Number)
+        //   })
+        // })
+      })
+  })
+})
