@@ -25,3 +25,14 @@ describe('GET /api/topics', () => {
       })
   })
 })
+
+describe('GET /api/articles', () => {
+  test('200: returns a list of all articles', () => {
+    return request(app)
+      .get('/api/articles')
+      // .expect(200)
+      .then(({body: {articles}}) => {
+        
+      })
+  })
+})
