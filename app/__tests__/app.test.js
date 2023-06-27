@@ -37,3 +37,23 @@ describe('GET /api', () => {
       })
   })
 })
+
+describe('GET /api/articles', () => {
+  test('200: serves the article with the provided id', () => {
+    return request(app)
+      .get('/api/articles/1')
+      .expect(200)
+      .then(({body: {article}}) => {
+        expect(article).toEqual({
+          title: "Living in the shadow of a great man",
+          topic: "mitch",
+          author: "butter_bridge",
+          body: "I find this existence challenging",
+          created_at: 1594329060000,
+          votes: 100,
+          article_img_url:
+            "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700",
+        })
+      })
+  })
+})

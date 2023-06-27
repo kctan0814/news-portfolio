@@ -9,6 +9,8 @@ app.get('/api/topics', getTopics)
 
 app.get('/api', getEndpoints)
 
+app.get('/api/articles/:article_id', )
+
 app.use(handleCustomErrors)
 
 app.use(handleServerErrors)
