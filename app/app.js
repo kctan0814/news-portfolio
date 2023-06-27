@@ -6,6 +6,8 @@ const app = express();
 
 app.get('/api/topics', getTopics)
 
+app.get('/api/articles', )
+
 app.use(handleCustomErrors)
 
 app.use(handleServerErrors)
