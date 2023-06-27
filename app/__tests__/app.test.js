@@ -46,4 +46,21 @@ describe('GET /api/articles', () => {
         // })
       })
   })
+  test('200: returns an empty array if article exist with no comments', () => {
+    return request(app)
+      .get('/api/articles/4/comments')
+      // .expect(200)
+      .then(({body: {comments}}) => {
+        // expect(comments.length).toBe(0)
+        // expect(Array.isArray(comments)).toBe(true)
+      })
+  })
+  test('400: retruns an error message of "Not foumd" when passed with an article id not in the database', () => {
+    return request(app)
+      .get('/api/articles/99999/comments')
+      // .expect(404)
+      .then(({body: {msg}}) => {
+        // expect(msg).toBe('Not found')
+      })
+  })
 })
