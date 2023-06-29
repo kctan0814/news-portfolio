@@ -48,4 +48,12 @@ describe('GET /api/articles', () => {
         })
       })
   })
+  test('200: the returned results must be sorted bt date in descending order', () => {
+    return request(app)
+      .get('/api/articles')
+      .expect(200)
+      .then(({body: {articles}}) => {
+        // expect(articles).toBeSortedBy('created_at', {descending: true})
+      })
+  })
 })
