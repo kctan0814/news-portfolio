@@ -16,6 +16,8 @@ app.get('/api/articles', getArticles)
 
 app.get('/api/articles/:article_id/comments', getCommentsByArticleId)
 
+app.get('/api/users', )
+
 app.use(handlePsqlErrors)
 
 app.use(handleCustomErrors)
