@@ -30,3 +30,12 @@ exports.selectArticleById = (id) => {
     return rows[0];
    })
 }
+exports.selectCommentsByArticleId = (id) => {
+  return this.selectArticleById(id)
+    .then(() => {
+      return db.query("SELECT * FROM comments WHERE article_id = $1", [id])
+    })
+    .then(({rows}) => {
+      return rows;
+    })
+}
