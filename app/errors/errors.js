@@ -8,6 +8,7 @@ exports.handleCustomErrors = (err, req, res, next) => {
 
 
 exports.handlePsqlErrors = (err, req, res, next) => {
+  console.log('went to the error handlers')
   if (err.code) {
     res.status(400).send({ msg: 'Bad request' });
   } else {
