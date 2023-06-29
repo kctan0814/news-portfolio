@@ -148,74 +148,74 @@ describe('GET /api/articles', () => {
   })
 })
 
-// describe('POST /api/articles', () => {
-//   test.only('200: inserts body into the comments table in the database and returns the insered data', () => {
-//     const bodyToSend = {
-//       username: 'kctan36',
-//       body: 'This is my first time commenting here ever!! omg!!!'
-//     }
-//     return request(app)
-//       .post('/api/articles/5/comments')
-//       .send(bodyToSend)
-//       .expect(200)
-//       .then(({body: {comment}}) => {
-//         expect(comment).toMatchObject({
-//           comment_id: expect.any(Number),
-//           article_id: 5,
-//           votes: 0,
-//           created_at: expect.any(String),
-//           author: bodyToPass.username,
-//           body: bodyToPass.body
-//         })
-//       })
-//   })
-//   test('400: returns an error mesagge of "Bad request" when id passed is not a number', () => {
-//     const bodyToSend = {
-//       username: 'kctan36',
-//       body: 'This is my first time commenting here ever!! omg!!!'
-//     }
-//     return request(app)
-//       .post('/api/articles/bingbong/comments')
-//       .send(bodyToSend)
-//       .expect(400)
-//       .then(({body: {msg}}) => {
-//         expect(msg).toBe('Bad request')
-//       })
-//   })
-//   test('404: returns an error mesagge of "Not found" when article_id passed does not exist in database', () => {
-//     const bodyToSend = {
-//       username: 'kctan36',
-//       body: 'This is my first time commenting here ever!! omg!!!'
-//     }
-//     return request(app)
-//       .post('/api/articles/123456/comments')
-//       .send(bodyToSend)
-//       .expect(404)
-//       .then(({body: {msg}}) => {
-//         expect(msg).toBe('Not found')
-//       })
-//   })
-//   test('400: returns an error mesagge of "Bad request" when body passed does not fit the schema', () => {
-//     const bodyToSend = {
-//       nameuser: 'kctan36',
-//       comment: 'This is my first time commenting here ever!! omg!!!'
-//     }
-//     return request(app)
-//       .post('/api/articles/1/comments')
-//       .send(bodyToSend)
-//       .expect(400)
-//       .then(({body: {msg}}) => {
-//         expect(msg).toBe('Bad request')
-//       })
-//   })
-//   test('400: returns an error mesagge of "Bad request" when body passed is empty', () => {
-//     const bodyToSend = {}
-//     return request(app)
-//       .post('/api/articles/4/comments')
-//       .send(bodyToSend)
-//       .expect(400)
-//       .then(({body: {msg}}) => {
-//         expect(msg).toBe('Bad request')
-//       })
-//   })
-// })
+describe('POST /api/articles', () => {
+  test('200: inserts body into the comments table in the database and returns the insered data', () => {
+    const bodyToSend = {
+      username: 'lurker',
+      body: 'This is my first time commenting here ever!! omg!!!'
+    }
+    return request(app)
+      .post('/api/articles/5/comments')
+      .send(bodyToSend)
+      .expect(200)
+      .then(({body: {comment}}) => {
+        expect(comment).toMatchObject({
+          comment_id: expect.any(Number),
+          article_id: 5,
+          votes: 0,
+          created_at: expect.any(String),
+          author: bodyToSend.username,
+          body: bodyToSend.body
+        })
+      })
+  })
+  test('400: returns an error mesagge of "Bad request" when id passed is not a number', () => {
+    const bodyToSend = {
+      username: 'lurker',
+      body: 'This is my first time commenting here ever!! omg!!!'
+    }
+    return request(app)
+      .post('/api/articles/bingbong/comments')
+      .send(bodyToSend)
+      .expect(400)
+      .then(({body: {msg}}) => {
+        expect(msg).toBe('Bad request')
+      })
+  })
+  test('404: returns an error mesagge of "Not found" when article_id passed does not exist in database', () => {
+    const bodyToSend = {
+      username: 'lurker',
+      body: 'This is my first time commenting here ever!! omg!!!'
+    }
+    return request(app)
+      .post('/api/articles/123456/comments')
+      .send(bodyToSend)
+      .expect(404)
+      .then(({body: {msg}}) => {
+        expect(msg).toBe('Not found')
+      })
+  })
+  test('400: returns an error mesagge of "Bad request" when body passed does not fit the schema', () => {
+    const bodyToSend = {
+      nameuser: 'lurker',
+      comment: 'This is my first time commenting here ever!! omg!!!'
+    }
+    return request(app)
+      .post('/api/articles/1/comments')
+      .send(bodyToSend)
+      .expect(400)
+      .then(({body: {msg}}) => {
+        expect(msg).toBe('Bad request')
+      })
+  })
+  test('400: returns an error mesagge of "Bad request" when body passed is empty', () => {
+    const bodyToSend = {}
+    return request(app)
+      .post('/api/articles/4/comments')
+      .send(bodyToSend)
+      .expect(400)
+      .then(({body: {msg}}) => {
+        expect(msg).toBe('Bad request')
+      })
+  })
+})

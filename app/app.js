@@ -14,11 +14,11 @@ app.get('/api', getEndpoints)
 
 app.get('/api/articles/:article_id', getArticleById)
 
-app.post('/api/articles/:article_id/comments', postComment)
-
 app.get('/api/articles', getArticles)
 
 app.get('/api/articles/:article_id/comments', getCommentsByArticleId)
+
+app.post('/api/articles/:article_id/comments', postComment)
 
 app.use(handlePsqlErrors)
 
