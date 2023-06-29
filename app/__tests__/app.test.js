@@ -53,7 +53,7 @@ describe('GET /api/articles', () => {
       .get('/api/articles')
       .expect(200)
       .then(({body: {articles}}) => {
-        // expect(articles).toBeSortedBy('created_at', {descending: true})
+        expect(articles).toBeSortedBy('created_at', {descending: true})
       })
   })
 })
