@@ -39,3 +39,14 @@ exports.selectCommentsByArticleId = (id) => {
       return rows;
     })
 }
+
+/* 
+Errors:
+  404 - id does not exist
+  400 - id is NaN
+  400 - body does not fit schema
+  400 - body is empty
+
+If ok:
+  200 - send the updated article
+*/
