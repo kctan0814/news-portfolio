@@ -101,12 +101,20 @@ describe('GET /api/articles', () => {
         expect(Array.isArray(comments)).toBe(true)
       })
   })
-  test('400: retruns an error message of "Not foumd" when passed with an article id not in the database', () => {
+  test('404: retruns an error message of "Not foumd" when passed with an article id not in the database', () => {
     return request(app)
       .get('/api/articles/99999/comments')
       .expect(404)
       .then(({body: {msg}}) => {
         expect(msg).toBe('Not found')
+      })
+  })
+  test('400: returns a message "Bad request" when id passed is NaN', () => {
+    return request(app)
+      .get('/api/articles/bingbong/comments')
+      .expect(400)
+      .then(({body: {msg}}) => {
+        expect(msg).toBe('Bad request')
       })
   })
 })
