@@ -1,0 +1,12 @@
+{
+  "GET /api": {
+    "description": "gives a list of all available endpoints with descriptions, queries and sample responses where applicable"
+  },
+  "GET /api/topics": {
+    "description": "gives a list of all the topics in the database",
+    "queries": [],
+    "exampleResponse": [
+      {"slug": "cats", "description": "cutest beings"}
+    ]
+  }
+}
