@@ -40,6 +40,22 @@ exports.selectCommentsByArticleId = (id) => {
     })
 }
 
+exports.updateArticle = (id, body) => {
+  const { inc_votes } = body;
+  return this.selectArticleById(id)
+    .then(() => {
+      return db.query(`
+      UPDATE articles 
+      SET votes = (votes + $1) 
+      WHERE article_id = $2 
+      RETURNING *;`,
+      [inc_votes, id])
+    })
+    .then(({rows}) => {
+      return rows[0];
+    })
+}
+
 /* 
 Errors:
   404 - id does not exist
