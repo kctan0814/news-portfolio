@@ -1,4 +1,5 @@
-const { selectCommentsByArticleId, selectArticleById, selectArticles } = require("../model/articles.model")
+const users = require("../../db/data/test-data/users");
+const { selectCommentsByArticleId, selectArticleById, selectArticles, selectUsers } = require("../model/articles.model")
 
 exports.getArticleById = (req, res, next) => {
   const { article_id } = req.params;
@@ -20,5 +21,7 @@ exports.getCommentsByArticleId = (req, res, next) => {
 }
 
 exports.getUsers = (req, res, next) => {
-  
+  selectUsers().then((users) => {
+    res.status(200).send({users})
+  })
 }

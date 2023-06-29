@@ -148,19 +148,19 @@ describe('GET /api/articles', () => {
   })
 })
 
-// describe('GET /api/users', () => {
-//   test('200: returns a list of all the users in the database', () => {
-//     return request(app)
-//       .get('/api/users')
-//       .expect(200)
-//       .then(({body: {users}}) => {
-//         users.forEach(user => {
-//           expect(user).toMatchObject({
-//             username: expect.any(String),
-//             name: expect.any(String),
-//             avatar_url: expect.any(String)
-//           })
-//         })
-//       })
-//   })
-// })
+describe('GET /api/users', () => {
+  test('200: returns a list of all the users in the database', () => {
+    return request(app)
+      .get('/api/users')
+      .expect(200)
+      .then(({body: {users}}) => {
+        users.forEach(user => {
+          expect(user).toMatchObject({
+            username: expect.any(String),
+            name: expect.any(String),
+            avatar_url: expect.any(String)
+          })
+        })
+      })
+  })
+})
