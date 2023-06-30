@@ -7,6 +7,7 @@ exports.selectArticles = (topic, sort_by = 'created_at', order = 'DESC') => {
   return selectTopics().then((topics) => {
     const capsOrder = order.toUpperCase();
     const validTopics = topics.map(topic => topic.slug);
+    validTopics.push(undefined);
     const validSortBy = ['article_id', 'author', 'title', 'topic', 'created_at', 'votes']
     const validOrder = ['ASC', 'DESC']
     
@@ -33,17 +34,14 @@ exports.selectArticles = (topic, sort_by = 'created_at', order = 'DESC') => {
     FROM articles a 
     JOIN comments c
     ON a.article_id = c.article_id `
-
     
-    if (topic) toQuery += `WHERE a.topic = ${topic} `
+    if (topic) toQuery += `WHERE a.topic = '${topic}' `
     toQuery += `GROUP BY a.article_id ORDER BY a.${sort_by} ${capsOrder}`
-    console.log(toQuery)
-    console.log(db.query(toQuery))
-    // return db.query(toQuery)
+
+    return db.query(toQuery)
   })  
   .then(({rows}) => {
-    console.log(rows)
-    // return rows;
+    return rows;
   })
   
 }
