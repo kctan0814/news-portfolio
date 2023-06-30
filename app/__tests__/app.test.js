@@ -146,60 +146,60 @@ describe('GET /api/articles', () => {
         expect(msg).toBe('Bad request')
       })
   })
-  // test('200: returns the articles filtered by the given topic', () => {
-  //   return request(app)
-  //     .get('/api/articles?topic=cats')
-  //     .expect(200)
-  //     .then(({body: {articles}}) => {
+  test.only('200: returns the articles filtered by the given topic', () => {
+    return request(app)
+      .get('/api/articles?topic=cats')
+      .expect(200)
+      .then(({body: {articles}}) => {
 
-  //     })
-  // })
-  // test('200: returns an empty array if theres no article with that topic', () => {
-  //   return request(app)
-  //     .get('/api/articles?topic=cats')
-  //     .expect(200)
-  //     .then(({body: {articles}}) => {
+      })
+  })
+  test('200: returns an empty array if theres no article with that topic', () => {
+    return request(app)
+      .get('/api/articles?topic=cats')
+      .expect(200)
+      .then(({body: {articles}}) => {
         
-  //     })
-  // })
-  // test('400: returns an error message of "Bad request" when passed an invalid topic', () => {
-  //   return request(app)
-  //     .get('/api/articles?topic=mangoes')
-  //     .expect(400)
-  //     .then(({body: {msg}}) => {
-  //       expect(msg).toBe('Bad request')
-  //     })
-  // })
-  // test('200: returns an empty array if theres no article with that topic', () => {
-  //   return request(app)
-  //     .get('/api/articles?sort_by=title')
-  //     .expect(200)
-  //     .then(({body: {articles}}) => {
+      })
+  })
+  test('400: returns an error message of "Bad request" when passed an invalid topic', () => {
+    return request(app)
+      .get('/api/articles?topic=mangoes')
+      .expect(400)
+      .then(({body: {msg}}) => {
+        expect(msg).toBe('Bad request')
+      })
+  })
+  test('200: returns an empty array if theres no article with that topic', () => {
+    return request(app)
+      .get('/api/articles?sort_by=title')
+      .expect(200)
+      .then(({body: {articles}}) => {
         
-  //     })
-  // })
-  // test('400: returns an error message of "Bad request" when passed an invalid topic', () => {
-  //   return request(app)
-  //     .get('/api/articles?sort_by=strawberries')
-  //     .expect(400)
-  //     .then(({body: {msg}}) => {
-  //       expect(msg).toBe('Bad request')
-  //     })
-  // })
-  // test('200: returns an empty array if theres no article with that topic', () => {
-  //   return request(app)
-  //     .get('/api/articles?order=asc')
-  //     .expect(200)
-  //     .then(({body: {articles}}) => {
+      })
+  })
+  test('400: returns an error message of "Bad request" when passed an invalid topic', () => {
+    return request(app)
+      .get('/api/articles?sort_by=strawberries')
+      .expect(400)
+      .then(({body: {msg}}) => {
+        expect(msg).toBe('Bad request')
+      })
+  })
+  test('200: returns an empty array if theres no article with that topic', () => {
+    return request(app)
+      .get('/api/articles?order=asc')
+      .expect(200)
+      .then(({body: {articles}}) => {
         
-  //     })
-  // })
-  // test('400: returns an error message of "Bad request" when passed an invalid topic', () => {
-  //   return request(app)
-  //     .get('/api/articles?order=guavas')
-  //     .expect(400)
-  //     .then(({body: {msg}}) => {
-  //       expect(msg).toBe('Bad request')
-  //     })
-  // })
+      })
+  })
+  test('400: returns an error message of "Bad request" when passed an invalid topic', () => {
+    return request(app)
+      .get('/api/articles?order=guavas')
+      .expect(400)
+      .then(({body: {msg}}) => {
+        expect(msg).toBe('Bad request')
+      })
+  })
 })
