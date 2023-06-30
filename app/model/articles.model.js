@@ -21,13 +21,7 @@ exports.selectArticles = (topic, sort_by = 'created_at', order = 'DESC') => {
 
     let toQuery = `
     SELECT 
-    a.article_id, 
-    a.author, 
-    a.title, 
-    a.topic, 
-    a.created_at, 
-    a.article_img_url,
-    a.votes,
+    a.*,
     COUNT(c.comment_id) as comment_count
     FROM articles a 
     JOIN comments c

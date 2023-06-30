@@ -182,7 +182,7 @@ describe('GET /api/articles', () => {
         expect(msg).toBe('Bad request')
       })
   })
-  test('200: returns an empty array if theres no article with that topic', () => {
+  test('200: returns the articles sorted by the given query', () => {
     return request(app)
       .get('/api/articles?sort_by=title')
       .expect(200)
@@ -190,7 +190,7 @@ describe('GET /api/articles', () => {
         expect(articles).toBeSortedBy('title', { descending: true})
       })
   })
-  test('400: returns an error message of "Bad request" when passed an invalid topic', () => {
+  test('400: returns an error message of "Bad request" when passed an invalid sort_by', () => {
     return request(app)
       .get('/api/articles?sort_by=strawberries')
       .expect(400)
@@ -198,7 +198,7 @@ describe('GET /api/articles', () => {
         expect(msg).toBe('Bad request')
       })
   })
-  test('200: returns an empty array if theres no article with that topic', () => {
+  test('200: returns the articles sorted in the order given through the query', () => {
     return request(app)
       .get('/api/articles?order=asc')
       .expect(200)
@@ -206,7 +206,7 @@ describe('GET /api/articles', () => {
         expect(articles).toBeSortedBy('created_at')
       })
   })
-  test('400: returns an error message of "Bad request" when passed an invalid topic', () => {
+  test('400: returns an error message of "Bad request" when passed an invalid order', () => {
     return request(app)
       .get('/api/articles?order=guavas')
       .expect(400)
