@@ -1,6 +1,4 @@
 const db = require('../../db/connection')
-const { sort } = require('../../db/data/test-data/articles')
-const { getTopics } = require('../controller/topics.controller')
 const { selectTopics } = require('./topics.model')
 
 exports.selectArticles = (topic, sort_by = 'created_at', order = 'DESC') => {
