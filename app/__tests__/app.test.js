@@ -148,6 +148,34 @@ describe('GET /api/articles', () => {
   })
 })
 
+
+describe('DELETE /api/comments', () => {
+  test('204: deletes the comment and responds with no content', () => {
+    return request(app)
+      .delete('/api/comments/5')
+      .expect(204)
+      .then(({body}) => {
+        expect(body).toEqual({})
+      })
+  })
+  test('404: retruns an error message of "Not foumd" when passed with an comment id not in the database', () => {
+    return request(app)
+      .delete('/api/comments/9012')
+      .expect(404)
+      .then(({body: {msg}}) => {
+        expect(msg).toBe('Not found')
+      })
+  })
+  test('400: returns a message "Bad request" when id passed is NaN', () => {
+    return request(app)
+      .delete('/api/comments/ringring')
+      .expect(400)
+      .then(({body: {msg}}) => {
+        expect(msg).toBe('Bad request')
+      })
+  })
+})
+
 describe('PATCH /api/articles', () => {
   test('200: updates the article in the database and returns the updated article', () => {
     const bodyToSend = {
@@ -182,7 +210,6 @@ describe('PATCH /api/articles', () => {
         expect(msg).toBe('Not found')
       })
   })
-  test('400: returns a message "Bad request" when id passed is NaN', () => {
     const bodyToSend = {
       inc_votes: 100
     }

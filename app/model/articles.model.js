@@ -57,6 +57,20 @@ exports.selectCommentsByArticleId = (id) => {
     })
 }
 
+
+exports.removeComment = (id) => {
+  return db.query(`
+    DELETE FROM comments 
+    WHERE comment_id = $1
+    RETURnING *;`, [id]
+  )
+  .then(({rows}) => {
+    if(!rows.length) {
+      return Promise.reject({status: 404, msg: 'Not found'})
+    }
+  })
+}
+
 exports.updateArticle = (id, body) => {
   const { inc_votes } = body;
   return this.selectArticleById(id)
@@ -72,14 +86,3 @@ exports.updateArticle = (id, body) => {
       return rows[0];
     })
 }
-
-/* 
-Errors:
-  404 - id does not exist
-  400 - id is NaN
-  400 - body does not fit schema
-  400 - body is empty
-
-If ok:
-  200 - send the updated article
-*/
