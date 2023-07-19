@@ -191,7 +191,7 @@ describe('POST /api/articles', () => {
         })
       })
   })
-  test.skip('400: returns an error message of "Not found" when the username passed is not in the database', () => {
+  test('404: returns an error message of "Not found" when the username passed is not in the database', () => {
     const bodyToSend = {
       username: 'kctan36',
       body: 'What the point in living? (this is a joke)'
