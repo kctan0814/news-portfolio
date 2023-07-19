@@ -7,7 +7,7 @@ const endpointsJSON = require('../data/endpoints.json')
 
 beforeEach(() => seed(data));
 
-afterAll(() => connection.end());
+afterAll(() => connection.end())
 
 describe('GET /api/topics', () => {
   test('200: returns the list of all the topics to the client', () => {
