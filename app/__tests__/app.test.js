@@ -148,6 +148,76 @@ describe('GET /api/articles', () => {
   })
 })
 
+describe('PATCH /api/articles', () => {
+  test('200: updates the article in the database and returns the updated article', () => {
+    const bodyToSend = {
+      inc_votes: 100
+    }
+    return request(app)
+      .patch('/api/articles/1')
+      .send(bodyToSend)
+      .expect(200)
+      .then(({body: {article}}) => {
+        expect(article).toMatchObject({
+          article_id: 1,
+          title: 'Living in the shadow of a great man',
+          topic: 'mitch',
+          author: 'butter_bridge',
+          body: 'I find this existence challenging',
+          created_at: '2020-07-09T20:11:00.000Z',
+          votes: 200,
+          article_img_url: 'https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700'
+        })
+      })
+  })
+  test('404: retruns an error message of "Not foumd" when passed with an article id not in the database', () => {
+    const bodyToSend = {
+      inc_votes: 100
+    }
+    return request(app)
+      .patch('/api/articles/5678')
+      .send(bodyToSend)
+      .expect(404)
+      .then(({body: {msg}}) => {
+        expect(msg).toBe('Not found')
+      })
+  })
+  test('400: returns a message "Bad request" when id passed is NaN', () => {
+    const bodyToSend = {
+      inc_votes: 100
+    }
+    return request(app)
+      .patch('/api/articles/gento')
+      .send(bodyToSend)
+      .expect(400)
+      .then(({body: {msg}}) => {
+        expect(msg).toBe('Bad request')
+      })
+  })
+  test('400: returns a message "Bad request" when body passed does not fit the schema', () => {
+    const bodyToSend = {
+      update_votes: 100
+    }
+    return request(app)
+      .patch('/api/articles/5')
+      .send(bodyToSend)
+      .expect(400)
+      .then(({body: {msg}}) => {
+        expect(msg).toBe('Bad request')
+      })
+  })
+  test('400: returns a message "Bad request" when body is empty', () => {
+    const bodyToSend = {}
+    return request(app)
+      .patch('/api/articles/2')
+      .send(bodyToSend)
+      .expect(400)
+      .then(({body: {msg}}) => {
+        expect(msg).toBe('Bad request')
+      })
+  })
+})
+  
 describe('POST /api/articles', () => {
   test('201: inserts body into the comments table in the database and returns the insered data', () => {
     const bodyToSend = {

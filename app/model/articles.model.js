@@ -56,3 +56,30 @@ exports.selectCommentsByArticleId = (id) => {
       return rows;
     })
 }
+
+exports.updateArticle = (id, body) => {
+  const { inc_votes } = body;
+  return this.selectArticleById(id)
+    .then(() => {
+      return db.query(`
+      UPDATE articles 
+      SET votes = (votes + $1) 
+      WHERE article_id = $2 
+      RETURNING *;`,
+      [inc_votes, id])
+    })
+    .then(({rows}) => {
+      return rows[0];
+    })
+}
+
+/* 
+Errors:
+  404 - id does not exist
+  400 - id is NaN
+  400 - body does not fit schema
+  400 - body is empty
+
+If ok:
+  200 - send the updated article
+*/
