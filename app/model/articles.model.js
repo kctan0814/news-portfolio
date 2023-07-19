@@ -1,5 +1,6 @@
 const db = require('../../db/connection')
 const { selectTopics } = require('./topics.model')
+const { formatComment } = require('./utils')
 
 exports.selectArticles = (topic, sort_by = 'created_at', order = 'DESC') => {
   return selectTopics().then((topics) => {
@@ -24,31 +25,16 @@ exports.selectArticles = (topic, sort_by = 'created_at', order = 'DESC') => {
     a.*,
     COUNT(c.comment_id) as comment_count
     FROM articles a 
-    JOIN comments c
+    LEFT JOIN comments c
     ON a.article_id = c.article_id `
     
     if (topic) toQuery += `WHERE a.topic = '${topic}' `
     toQuery += `GROUP BY a.article_id ORDER BY a.${sort_by} ${capsOrder}`
-
+    console.log(toQuery)
     return db.query(toQuery)
   })
   .then(({rows}) => {
-    return rows;
-  })
-  
-}
-
-exports.selectArticles = () => {
-  return db.query(`
-  SELECT 
-  a.*,
-  COUNT(c.comment_id) as comment_count
-  FROM articles a 
-  LEFT JOIN comments c
-  ON a.article_id = c.article_id
-  GROUP BY a.article_id
-  ORDER BY created_at DESC;`)
-  .then(({rows}) => {
+    console.log(rows)
     return rows;
   })
   

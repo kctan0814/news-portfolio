@@ -161,7 +161,7 @@ describe('GET /api/articles', () => {
       .get('/api/articles?topic=mitch')
       .expect(200)
       .then(({body: {articles}}) => {
-        expect(articles.length).toBe(4)
+        expect(articles.length).toBe(12)
         expect(Array.isArray(articles)).toBe(true)
         articles.forEach(article => {
           expect(article).toMatchObject({
@@ -226,7 +226,6 @@ describe('GET /api/articles', () => {
   })
 })
 
-
 describe('GET /api/users', () => {
   test('200: returns a list of all the users in the database', () => {
     return request(app)
@@ -245,7 +244,7 @@ describe('GET /api/users', () => {
         })
       })
   })
-
+})  
   
 describe('DELETE /api/comments', () => {
   test('204: deletes the comment and responds with no content', () => {
@@ -296,7 +295,7 @@ describe('PATCH /api/articles', () => {
         })
       })
   })
-  test('404: retruns an error message of "Not foumd" when passed with an article id not in the database', () => {
+  test('404: returns an error message of "Not foumd" when passed with an article id not in the database', () => {
     const bodyToSend = {
       inc_votes: 100
     }
@@ -308,6 +307,7 @@ describe('PATCH /api/articles', () => {
         expect(msg).toBe('Not found')
       })
   })
+  test('400: returns an error message of "Bad request" when id passed is NaN', () => {
     const bodyToSend = {
       inc_votes: 100
     }
