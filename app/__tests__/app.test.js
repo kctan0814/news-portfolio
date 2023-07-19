@@ -53,8 +53,17 @@ describe('GET /api/articles', () => {
           created_at: "2020-07-09T20:11:00.000Z",
           votes: 100,
           article_img_url:
-            "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700",
-          comment_count: '11',
+            "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700"
+        })
+      })
+  })
+  test('200: serves the article with the comment_count property included', () => {
+    return request(app)
+      .get('/api/articles/1')
+      .expect(200)
+      .then(({body: {article}}) => {
+        expect(article).toMatchObject({
+          comment_count: '11'
         })
       })
   })
