@@ -154,6 +154,8 @@ describe('GET /api/users', () => {
       .get('/api/users')
       .expect(200)
       .then(({body: {users}}) => {
+        expect(Array.isArray(users)).toBe(true)
+        expect(users.length).not.toBe(0)
         users.forEach(user => {
           expect(user).toMatchObject({
             username: expect.any(String),
