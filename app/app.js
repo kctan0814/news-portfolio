@@ -3,6 +3,7 @@ const cors = require('cors')
 const { handlePsqlErrors, handleCustomErrors, handleServerErrors } = require('./errors/errors');
 const { getTopics } = require('./controller/topics.controller');
 const { getEndpoints } = require('./controller/api.controller');
+const { getUsers } = require('./controller/users.controller')
 const { getArticleById, postComment, getCommentsByArticleId, getArticles, patchArticle, deleteComment } = require('./controller/articles.controller');
 
 const app = express();
@@ -19,6 +20,8 @@ app.get('/api/articles/:article_id', getArticleById)
 app.get('/api/articles', getArticles)
 
 app.get('/api/articles/:article_id/comments', getCommentsByArticleId)
+
+app.get('/api/users', getUsers)
 
 app.delete('/api/comments/:comment_id', deleteComment)
 

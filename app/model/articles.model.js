@@ -57,7 +57,6 @@ exports.selectCommentsByArticleId = (id) => {
     })
 }
 
-
 exports.removeComment = (id) => {
   return db.query(`
     DELETE FROM comments 
