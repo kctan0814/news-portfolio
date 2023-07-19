@@ -78,7 +78,7 @@ describe('GET /api/articles', () => {
       .get('/api/articles')
       .expect(200)
       .then(({body: {articles}}) => {
-        expect(articles.length).toBe(5)
+        expect(articles.length).toBe(13)
         expect(Array.isArray(articles)).toBe(true)
         articles.forEach(article => {
           expect(article).toMatchObject({
