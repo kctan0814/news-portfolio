@@ -1,4 +1,5 @@
-const db = require('../../db/connection')
+const db = require('../../db/connection');
+const { formatComment } = require('./utils');
 
 exports.selectArticles = () => {
   return db.query(`
@@ -12,7 +13,7 @@ exports.selectArticles = () => {
   a.votes,
   COUNT(c.comment_id) as comment_count
   FROM articles a 
-  JOIN comments c
+  LEFT JOIN comments c
   ON a.article_id = c.article_id
   GROUP BY a.article_id
   ORDER BY created_at DESC;`)
@@ -30,6 +31,22 @@ exports.selectArticleById = (id) => {
     return rows[0];
    })
 }
+
+exports.insertComment = (id, comment) => {
+  const formattedComment = formatComment(id, comment)
+  return this.selectArticleById(id)
+    .then(() => {
+      return db.query(`
+      INSERT INTO comments 
+      (author, body, created_at, article_id)
+      VALUES ($1, $2, $3, $4)
+      RETURNING *;`, formattedComment)
+    })
+    .then(({rows}) => {
+      return rows[0];
+    })
+}
+
 exports.selectCommentsByArticleId = (id) => {
   return this.selectArticleById(id)
     .then(() => {
