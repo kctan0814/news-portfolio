@@ -5,8 +5,86 @@
   "GET /api/topics": {
     "description": "gives a list of all the topics in the database",
     "queries": [],
-    "exampleResponse": [
-      {"slug": "cats", "description": "cutest beings"}
+    "exampleResponse": {"topics": [
+      {"slug": "cats", "description": "cutest beings"},
+      {"slug": "dogs", "description": "also the cutest beings"}
+    ]}
+  },
+  "GET /api/articles/:article_id": {
+    "description": "gives the article information of an article that matches with the given id",
+    "queries": [],
+    "exampleResponse": { "article": {
+      "article_id": 7,
+      "title": "Anyone Can Cook",
+      "topic": "cooking",
+      "author": "Gusto",
+      "body": "Some recipes :)",
+      "created_at": "2008-11-22T11:13:00.000Z",
+      "votes": 91239,
+      "article_img_url": "https://www.ratatuile.com"
+    }
+    }
+  },
+  "GET /api/articles": {
+    "description": "gives a list of all the articles in the database, a sorted by date created in a descending order by default",
+    "queries": [],
+    "exampleResponse": {"articles": [
+      {
+        "article_id": 1,
+        "author": "Me",
+        "title": "The tales of Me",
+        "topic": "Journal",
+        "created_at": "2020-11-22T11:13:00.000Z",
+        "article_img_url": "https://www.examplephoto.com",
+        "votes": 999999999999,
+        "comment_count": 99999
+      },{
+        "article_id": 2,
+        "author": "You",
+        "title": "The tales of You",
+        "topic": "Journal",
+        "created_at": "2020-12-22T11:13:00.000Z",
+        "article_img_url": "https://www.examplebadphoto.com",
+        "votes": -5,
+        "comment_count": 1
+      }
     ]
+    }
+  },
+  "GET /api/articles/:article_id/comments": {
+    "description": "gives the article information of an article that matches with the given id",
+    "queries": [],
+    "exampleResponse": { "comments": [
+      {
+        "comment_id": 1,
+        "body": "Lorem upsum",
+        "article_id": 1,
+        "author": "Me",
+        "votes": 999999999999,
+        "created_at": "2020-11-22T11:13:00.000Z"
+      },
+      {
+        "comment_id": 2,
+        "body": "Lorem upsums",
+        "article_id": 1,
+        "author": "You",
+        "votes": -21,
+        "created_at": "2020-12-22T11:13:00.000Z"
+        }
+    ]
+    }
+  },
+  "POST /api/articles/:article_id/comments": {
+    "description": "gives the article information of an article that matches with the given id",
+    "queries": [],
+    "exampleResponse": { "comment": {
+      "comment_id": 19,
+      "body": "This is my first time commenting here ever!! omg!!!",
+      "article_id": 5,
+      "author": "lurker",
+      "votes": 0,
+      "created_at": "2023-07-19T11:47:12.636Z"
+    }
+    }
   }
 }
