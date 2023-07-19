@@ -1,5 +1,42 @@
-const db = require('../../db/connection');
-const { formatComment } = require('./utils');
+const db = require('../../db/connection')
+const { selectTopics } = require('./topics.model')
+
+exports.selectArticles = (topic, sort_by = 'created_at', order = 'DESC') => {
+  return selectTopics().then((topics) => {
+    const capsOrder = order.toUpperCase();
+    const validTopics = topics.map(topic => topic.slug);
+    validTopics.push(undefined);
+    const validSortBy = ['article_id', 'author', 'title', 'topic', 'created_at', 'votes']
+    const validOrder = ['ASC', 'DESC']
+    
+    if (!validTopics.includes(topic)) {
+      return Promise.reject({status: 400, msg: 'Bad request'})
+    }
+    if (!validSortBy.includes(sort_by)) {
+      return Promise.reject({status: 400, msg: 'Bad request'})
+    }
+    if (!validOrder.includes(capsOrder)) {
+      return Promise.reject({status: 400, msg: 'Bad request'})
+    }
+
+    let toQuery = `
+    SELECT 
+    a.*,
+    COUNT(c.comment_id) as comment_count
+    FROM articles a 
+    JOIN comments c
+    ON a.article_id = c.article_id `
+    
+    if (topic) toQuery += `WHERE a.topic = '${topic}' `
+    toQuery += `GROUP BY a.article_id ORDER BY a.${sort_by} ${capsOrder}`
+
+    return db.query(toQuery)
+  })
+  .then(({rows}) => {
+    return rows;
+  })
+  
+}
 
 exports.selectArticles = () => {
   return db.query(`
@@ -20,6 +57,7 @@ exports.selectArticles = () => {
   .then(({rows}) => {
     return rows;
   })
+  
 }
 
 exports.selectArticleById = (id) => {

@@ -146,6 +146,74 @@ describe('GET /api/articles', () => {
         expect(msg).toBe('Bad request')
       })
   })
+  test('200: returns the articles filtered by the given topic', () => {
+    return request(app)
+      .get('/api/articles?topic=mitch')
+      .expect(200)
+      .then(({body: {articles}}) => {
+        expect(articles.length).toBe(4)
+        expect(Array.isArray(articles)).toBe(true)
+        articles.forEach(article => {
+          expect(article).toMatchObject({
+            article_id: expect.any(Number),
+            author: expect.any(String),
+            topic: 'mitch',
+            created_at: expect.any(String),
+            article_img_url: expect.any(String),
+            votes: expect.any(Number),
+            comment_count: expect.any(String)
+          })
+        })
+      })
+  })
+  test('200: returns an empty array if theres no article with that topic', () => {
+    return request(app)
+      .get('/api/articles?topic=paper')
+      .expect(200)
+      .then(({body: {articles}}) => {
+        expect(articles).toEqual([])
+      })
+  })
+  test('400: returns an error message of "Bad request" when passed an invalid topic', () => {
+    return request(app)
+      .get('/api/articles?topic=mangoes')
+      .expect(400)
+      .then(({body: {msg}}) => {
+        expect(msg).toBe('Bad request')
+      })
+  })
+  test('200: returns the articles sorted by the given query', () => {
+    return request(app)
+      .get('/api/articles?sort_by=title')
+      .expect(200)
+      .then(({body: {articles}}) => {
+        expect(articles).toBeSortedBy('title', { descending: true})
+      })
+  })
+  test('400: returns an error message of "Bad request" when passed an invalid sort_by', () => {
+    return request(app)
+      .get('/api/articles?sort_by=strawberries')
+      .expect(400)
+      .then(({body: {msg}}) => {
+        expect(msg).toBe('Bad request')
+      })
+  })
+  test('200: returns the articles sorted in the order given through the query', () => {
+    return request(app)
+      .get('/api/articles?order=asc')
+      .expect(200)
+      .then(({body: {articles}}) => {
+        expect(articles).toBeSortedBy('created_at')
+      })
+  })
+  test('400: returns an error message of "Bad request" when passed an invalid order', () => {
+    return request(app)
+      .get('/api/articles?order=guavas')
+      .expect(400)
+      .then(({body: {msg}}) => {
+        expect(msg).toBe('Bad request')
+      })
+  })
 })
 
 
@@ -162,12 +230,13 @@ describe('GET /api/users', () => {
             username: expect.any(String),
             name: expect.any(String),
             avatar_url: expect.any(String)
+
           })
         })
       })
   })
 
-
+  
 describe('DELETE /api/comments', () => {
   test('204: deletes the comment and responds with no content', () => {
     return request(app)
@@ -263,7 +332,7 @@ describe('PATCH /api/articles', () => {
       })
   })
 })
-  
+
 describe('POST /api/articles', () => {
   test('201: inserts body into the comments table in the database and returns the insered data', () => {
     const bodyToSend = {
