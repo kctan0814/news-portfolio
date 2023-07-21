@@ -1,4 +1,5 @@
 const db = require('../../db/connection')
+const { slice } = require('../../db/data/test-data/articles')
 const { selectTopics } = require('./topics.model')
 const { formatComment } = require('./utils')
 
@@ -29,7 +30,7 @@ exports.selectArticles = (topic, sort_by = 'created_at', order = 'DESC') => {
     ON a.article_id = c.article_id `
     
     if (topic) toQuery += `WHERE a.topic = '${topic}' `
-    toQuery += `GROUP BY a.article_id ORDER BY a.${sort_by} ${capsOrder}`
+    toQuery += `GROUP BY a.article_id ORDER BY ${sort_by === 'comment_count' ? '' : 'a.'}${sort_by} ${capsOrder}`
     return db.query(toQuery)
   })
   .then(({rows}) => {
@@ -86,7 +87,7 @@ exports.removeComment = (id) => {
   return db.query(`
     DELETE FROM comments 
     WHERE comment_id = $1
-    RETURnING *;`, [id]
+    RETURNING *;`, [id]
   )
   .then(({rows}) => {
     if(!rows.length) {
