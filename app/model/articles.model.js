@@ -30,11 +30,9 @@ exports.selectArticles = (topic, sort_by = 'created_at', order = 'DESC') => {
     
     if (topic) toQuery += `WHERE a.topic = '${topic}' `
     toQuery += `GROUP BY a.article_id ORDER BY a.${sort_by} ${capsOrder}`
-    console.log(toQuery)
     return db.query(toQuery)
   })
   .then(({rows}) => {
-    console.log(rows)
     return rows;
   })
   
@@ -76,9 +74,10 @@ exports.insertComment = (id, comment) => {
 exports.selectCommentsByArticleId = (id) => {
   return this.selectArticleById(id)
     .then(() => {
-      return db.query("SELECT * FROM comments WHERE article_id = $1", [id])
+      return db.query("SELECT * FROM comments WHERE article_id = $1 ORDER BY created_at DESC", [id])
     })
     .then(({rows}) => {
+
       return rows;
     })
 }
