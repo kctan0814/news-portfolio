@@ -7,7 +7,7 @@ exports.selectArticles = (topic, sort_by = 'created_at', order = 'DESC') => {
     const capsOrder = order.toUpperCase();
     const validTopics = topics.map(topic => topic.slug);
     validTopics.push(undefined);
-    const validSortBy = ['article_id', 'author', 'title', 'topic', 'created_at', 'votes']
+    const validSortBy = ['article_id', 'author', 'title', 'topic', 'created_at', 'votes', 'comment_count']
     const validOrder = ['ASC', 'DESC']
     
     if (!validTopics.includes(topic)) {
